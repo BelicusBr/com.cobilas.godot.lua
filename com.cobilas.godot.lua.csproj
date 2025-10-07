@@ -1,0 +1,47 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+    <PropertyGroup>
+        <TargetFrameworks>net472;netstandard2.0;netstandard2.1</TargetFrameworks>
+        <!-- <TargetFramework>net472</TargetFramework> -->
+        <LangVersion>default</LangVersion>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Cobilas</RootNamespace>
+        <NoWarn>IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup>
+        <Authors>BélicusBr</Authors>
+        <Title>Cobilas Godot Lua</Title>
+        <PackageId>Cobilas.Godot.Lua</PackageId>
+        <PackageVersion>1.0.0</PackageVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageOutputPath>C:\local.nuget</PackageOutputPath>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua.git</RepositoryUrl>
+        <NeutralLanguage>en</NeutralLanguage>
+        <PackageTags>CSharp;C#;net472;netstandard2.0;netstandard2.1;godotengine;godot</PackageTags>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>DEBUG;TOOLS;TRACE;GODOT_EDITOR</DefineConstants>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>TRACE;</DefineConstants>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Content Include="copilot.md" />
+	</ItemGroup>
+    <ItemGroup>
+		<PackageReference Include="NLua" Version="1.7.5" />
+		<PackageReference Include="Cobilas.Core.Net4x" Version="2.6.0" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="6.1.2" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
+        <None Include="LICENSE.md" Pack="true" PackagePath="\" />
+        <None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+</Project>
