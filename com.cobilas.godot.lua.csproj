@@ -37,7 +37,7 @@
     <ItemGroup>
 		<PackageReference Include="NLua" Version="1.7.5" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.6.0" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="6.1.2" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="6.2.3" />
     </ItemGroup>
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
