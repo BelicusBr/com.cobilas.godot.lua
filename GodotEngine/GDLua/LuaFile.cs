@@ -8,6 +8,7 @@ using Cobilas.GodotEngine.GDLua.Interfaces;
 namespace Cobilas.GodotEngine.GDLua;
 
 public sealed class LuaFile : IDisposable, ILuaFile {
+    private bool disposed;
     private readonly Lua lua;
     private readonly Archive luaFile;
     private readonly Folder? luaFolder;
@@ -32,6 +33,7 @@ public sealed class LuaFile : IDisposable, ILuaFile {
         this(new LuaFileConfg(filePath, null, refreshBuffer, openLibs:true)) { }
     
     public LuaField GetField(string pathField) {
+        ObjectDisposed(disposed);
         if (confg.RefreshBuffer) {
             luaFile.RefreshBuffer();
             _ = lua.DoString(luaFile.Read());
@@ -42,14 +44,18 @@ public sealed class LuaFile : IDisposable, ILuaFile {
     }
     
     public void SetField(string pathField, object value) {
+        ObjectDisposed(disposed);
         if (confg.RefreshBuffer) {
             luaFile.RefreshBuffer();
             _ = lua.DoString(luaFile.Read());
         }
-        lua.SetObjectToPath(pathField, value);
+        if (ObjectToLuaTable.TryGetValue(value.GetType(), out ObjectToLuaTable func))
+            func.ToLuaTable(value, lua.GetTable(pathField));
+        else lua.SetObjectToPath(pathField, value);
     }
 
     public object[] InvokeFunction(string methodName, params object[] args) {
+        ObjectDisposed(disposed);
         if (confg.RefreshBuffer) {
             luaFile.RefreshBuffer();
             _ = lua.DoString(luaFile.Read());
@@ -58,7 +64,23 @@ public sealed class LuaFile : IDisposable, ILuaFile {
     }
 
     public void Dispose() {
+        ObjectDisposed(disposed);
+        disposed = true;
         ((IDisposable)lua).Dispose();
         ((IDisposable?)luaFolder)?.Dispose();
+    }
+    
+    private static void ObjectDisposed(bool disposed) {
+        if (disposed) throw new ObjectDisposedException(nameof(LuaContainer));
+    }
+
+    public LuaField GetField<T>(string pathField)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void GetFieldToObject<T>(string pathField, ref T value)
+    {
+        throw new NotImplementedException();
     }
 }

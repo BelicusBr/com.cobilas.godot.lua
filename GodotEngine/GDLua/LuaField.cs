@@ -4,6 +4,7 @@ using System;
 namespace Cobilas.GodotEngine.GDLua;
 
 public struct LuaField(string fieldName, object value) : IConvertible, IDisposable {
+    private bool disposed;
     private object? _value = value;
     private string? _fieldName = fieldName;
 
@@ -11,7 +12,8 @@ public struct LuaField(string fieldName, object value) : IConvertible, IDisposab
     public readonly object Value => _value ?? throw new ObjectDisposedException(nameof(LuaField));
 
     public void Dispose() {
-        if (_fieldName is null) throw new ObjectDisposedException(nameof(LuaField));
+        if (disposed) throw new ObjectDisposedException(nameof(LuaField));
+        disposed = true;
         _fieldName = null;
         _value = null;
     }
@@ -98,7 +100,7 @@ public struct LuaField(string fieldName, object value) : IConvertible, IDisposab
     private static TypeCode GetTypeCode(LuaField field) => ((IConvertible)field).GetTypeCode();
     private static string ToString(LuaField field, IFormatProvider provider) => ((IConvertible)field).ToString(provider);
 
-    public static explicit operator LuaTable(LuaField f) => f._value as LuaTable ?? throw new ObjectDisposedException(nameof(LuaField));
+    public static explicit operator LuaTable(LuaField f) => f._value as LuaTable ?? throw new InvalidCastException($"{nameof(LuaField)} is null");
     public static explicit operator TypeCode(LuaField f) => Convert.GetTypeCode(f);
     public static explicit operator string(LuaField f) => Convert.ToString(f);
     public static explicit operator char(LuaField f) => Convert.ToChar(f);
