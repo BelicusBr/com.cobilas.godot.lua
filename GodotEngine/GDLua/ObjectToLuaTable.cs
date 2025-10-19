@@ -25,8 +25,7 @@ public abstract class ObjectToLuaTable {
     /// <param name="type">The type to find a converter for.</param>
     /// <param name="value">When this method returns, contains the converter associated with the specified type, if found; otherwise, null.</param>
     /// <returns>true if a converter for the specified type was found; otherwise, false.</returns>
-    public static bool TryGetValue(Type type, out ObjectToLuaTable value)
-        => converters.TryGetValue(type, out value);
+    public static bool TryGetValue(Type type, out ObjectToLuaTable value) => converters.TryGetValue(type, out value);
 
     // Private method not documented as requested
     private static Dictionary<Type, ObjectToLuaTable> GetConverters() {
