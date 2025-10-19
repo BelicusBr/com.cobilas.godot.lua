@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.iconTheme": "vscode-icon-theme",
+		"workbench.colorTheme": "Visual Studio Dark - C++",
+		"workbench.sideBar.location": "right"
+	}
+}
