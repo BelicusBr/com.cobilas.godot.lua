@@ -137,7 +137,7 @@ public sealed class LuaContainer : IDisposable, ILuaFile {
     public void LuaTableToObject<T>(string pathField, ref T value) {
         LuaFile.ObjectDisposed(disposed);
         if (ObjectToLuaTable.TryGetValue(typeof(T), out ObjectToLuaTable table))
-            table.ToObject(value, lua[pathField] as LuaTable);
+            value = (T)table.ToObject(value, lua[pathField] as LuaTable);
         else throw new InvalidCastException($"The type {typeof(T)} does not have an `ObjectToLuaTable` converter defined.");
     }
     /// <inheritdoc/>

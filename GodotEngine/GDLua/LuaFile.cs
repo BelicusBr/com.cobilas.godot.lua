@@ -52,7 +52,7 @@ public sealed class LuaFile : IDisposable, ILuaFile {
         }
         object value = lua[pathField];
         if (value is LuaFunction) throw new LuaException($"{pathField} is {nameof(LuaFunction)}");
-        return new(pathField, lua[pathField]);
+        return new(pathField, value);
     }
     /// <inheritdoc/>
     /// <exception cref="ObjectDisposedException">Thrown when the LuaFile has been disposed.</exception>
@@ -98,7 +98,7 @@ public sealed class LuaFile : IDisposable, ILuaFile {
             _ = lua.DoString(luaFile.Read());
         }
         if (ObjectToLuaTable.TryGetValue(typeof(T), out ObjectToLuaTable table))
-            table.ToObject(value, lua[pathField] as LuaTable);
+            value = (T)table.ToObject(value, lua[pathField] as LuaTable);
         else throw new InvalidCastException($"The type {typeof(T)} does not have an `ObjectToLuaTable` converter defined.");
     }
     /// <summary>Releases all resources used by the LuaFile instance.</summary>
