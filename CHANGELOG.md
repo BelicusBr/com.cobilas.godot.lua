@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] (20/10/2025)
+
+### Fixed
+- **ObjectToLuaTable Converter Discovery**: Fixed type detection logic in `GetConverters()` method
+  - Replaced custom `CompareTypeAndSubType<T>()` method with standard `IsSubclassOf()` approach
+  - Improved reliability of converter type discovery across different .NET environments
+  - Resolved potential issues with converter registration in certain runtime scenarios
+
+### Serialization System
+- **Enhanced Type Scanning**: More robust detection of custom serialization converters
+- **Improved Reflection Logic**: Standardized type checking using built-in .NET methods
+- **Better Cross-Platform Compatibility**: Ensures consistent behavior across different target frameworks (net472, netstandard2.0, netstandard2.1)
+
+### Technical Improvements
+- **Code Standardization**: Replaced custom type comparison with framework-standard approach
+- **Maintenance Reduction**: Eliminated dependency on custom type utility methods for converter discovery
+- **Performance**: Potentially improved performance through use of built-in type checking mechanisms
+
+### Impact
+- No breaking changes to public API
+- Existing serialization converters continue to work without modification
+- Improved reliability in automated converter discovery during runtime
+
 ## [1.2.2] (20/10/2025)
 
 ### Fixed
