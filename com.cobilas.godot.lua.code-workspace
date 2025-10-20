@@ -1,7 +1,12 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": ".",
+			"name": "Cobilas Godot Lua"
+		},
+		{
+			"path": "../../../Dev Docs/com.cobilas.docs",
+			"name": "Documentações"
 		}
 	],
 	"settings": {

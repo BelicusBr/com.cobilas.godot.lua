@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] (20/10/2025)
+
+### Fixed
+- **NuGet Package Dependency Configuration**: Fixed NLua package reference by adding `<PrivateAssets>build;analyzers</PrivateAssets>` configuration
+  - Prevents build and analyzer assets from being transitively included in consuming projects
+  - Reduces package footprint and avoids potential conflicts in downstream projects
+  - Improves clean dependency management for package consumers
+
+### Build & Packaging
+- **Enhanced Package Cleanliness**: NLua dependency now properly marked as development dependency for build-time only
+- **Reduced Transitive Dependencies**: Build assets and analyzers from NLua won't propagate to consuming projects
+- **Improved Compatibility**: Better alignment with NuGet best practices for dependency management
+
+### Technical Details
+- The `<PrivateAssets>` element ensures that build-related assets from NLua are not included when this package is consumed by other projects
+- This change doesn't affect runtime functionality but improves the package's consumer experience
+- Maintains full compatibility with existing Godot Engine projects and Lua integration features
+
 ## [1.2.1] (18/10/2025)
 
 ### Fixed
