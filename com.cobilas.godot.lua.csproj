@@ -11,7 +11,7 @@
         <Authors>BélicusBr</Authors>
         <Title>Cobilas Godot Lua</Title>
         <PackageId>Cobilas.Godot.Lua</PackageId>
-        <PackageVersion>1.2.1</PackageVersion>
+        <PackageVersion>1.2.2</PackageVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageOutputPath>C:\local.nuget</PackageOutputPath>
         <RepositoryType>git</RepositoryType>
@@ -21,6 +21,7 @@
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <!-- <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract> -->
     </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,7 +32,10 @@
 		<DefineConstants>TRACE;</DefineConstants>
 	</PropertyGroup>
     <ItemGroup>
-		<PackageReference Include="NLua" Version="1.7.5" />
+        <!-- referencia https://learn.microsoft.com/pt-br/nuget/consume-packages/package-references-in-project-files#controlling-dependency-version -->
+        <PackageReference Include="NLua" Version="1.7.5">
+            <PrivateAssets>build;analyzers</PrivateAssets>
+        </PackageReference>
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.6.0" />
 		<PackageReference Include="Cobilas.Godot.Utility" Version="6.2.3" />
     </ItemGroup>
