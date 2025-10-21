@@ -11,7 +11,7 @@
         <Authors>BélicusBr</Authors>
         <Title>Cobilas Godot Lua</Title>
         <PackageId>Cobilas.Godot.Lua</PackageId>
-        <PackageVersion>1.2.2</PackageVersion>
+        <PackageVersion>1.2.3</PackageVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageOutputPath>C:\local.nuget</PackageOutputPath>
         <RepositoryType>git</RepositoryType>
