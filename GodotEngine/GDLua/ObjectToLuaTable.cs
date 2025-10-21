@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 
 namespace Cobilas.GodotEngine.GDLua;
-
 /// <summary>Provides a base class for converting between C# objects and Lua tables.</summary>
 /// <remarks>
 /// This abstract class serves as the foundation for type-specific converters
@@ -26,12 +25,11 @@ public abstract class ObjectToLuaTable {
     /// <param name="value">When this method returns, contains the converter associated with the specified type, if found; otherwise, null.</param>
     /// <returns>true if a converter for the specified type was found; otherwise, false.</returns>
     public static bool TryGetValue(Type type, out ObjectToLuaTable value) => converters.TryGetValue(type, out value);
-
     // Private method not documented as requested
     private static Dictionary<Type, ObjectToLuaTable> GetConverters() {
         Dictionary<Type, ObjectToLuaTable> result = [];
         foreach (Type item in TypeUtilitarian.GetTypes())
-            if (item.CompareTypeAndSubType<ObjectToLuaTable>()) {
+            if (item.IsSubclassOf(typeof(ObjectToLuaTable))) {
                 ObjectToLuaTable obj2lt = item.Activator<ObjectToLuaTable>();
                 LuaSerializableAttribute[] attributes = item.GetAttributes<LuaSerializableAttribute>();
                 if (attributes is not null)
