@@ -6,6 +6,11 @@
 .import/
 export.cfg
 export_credentials.cfg
+.libs
+bin
+obj
+.vscode
+node_modules
 
 # Imported translations (automatically generated from CSV files)
 *.translation
