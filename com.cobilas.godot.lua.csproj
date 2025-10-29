@@ -10,7 +10,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <Title>Cobilas Godot Lua</Title>
         <Authors>BélicusBr</Authors>
-        <Version>1.2.5</Version>
+        <Version>1.2.6</Version>
         <PackageId>Cobilas.Godot.Lua</PackageId>
         <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -37,7 +37,7 @@
 		<None Include="LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="7.0.2" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="7.1.1" />
         <PackageReference Include="NLua" Version="1.7.6" />
         <Reference Include="GodotSharp">
             <HintPath>..\assemblies\Debug\GodotSharp.dll</HintPath>
