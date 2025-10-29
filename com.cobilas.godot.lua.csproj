@@ -4,58 +4,46 @@
         <LangVersion>default</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>Cobilas</RootNamespace>
-        <NoWarn>IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
-    </PropertyGroup>
-    <PropertyGroup>
-        <Authors>BélicusBr</Authors>
-        <Title>Cobilas Godot Lua</Title>
-        <PackageId>Cobilas.Godot.Lua</PackageId>
-        <PackageVersion>1.2.4</PackageVersion>
-        <PackageOutputPath>C:\local.nuget</PackageOutputPath>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua.git</RepositoryUrl>
-        <NeutralLanguage>en</NeutralLanguage>
-        <PackageTags>CSharp;C#;net472;netstandard2.0;netstandard2.1;godotengine;godot</PackageTags>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AssemblyName>com.cobilas.godot.lua</AssemblyName>
+        <NoWarn>1701;1702;IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
+        <BaseOutputPath>bin\$(Configuration)</BaseOutputPath>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <IncludeSymbols>true</IncludeSymbols>
+        <Title>Cobilas Godot Lua</Title>
+        <Authors>BélicusBr</Authors>
+        <Version>1.2.4</Version>
+        <PackageId>Cobilas.Godot.Lua</PackageId>
+        <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>CSharp;C#;net472;netstandard2.0;netstandard2.1;godotengine;godot</PackageTags>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Description>Package that allows the manipulation of .lua files within Godot 3.</Description>
+        <IncludeSymbols>True</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <DebugType>portable</DebugType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageOutputPath>C:\local.nuget\$(Configuration)</PackageOutputPath>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     </PropertyGroup>
-        
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <WarningLevel>4</WarningLevel>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <WarningLevel>4</WarningLevel>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
     <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath="\" />
-        <None Include="LICENSE.md" Pack="true" PackagePath="\" />
-        <None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
-        <!-- PackageReference -->
-		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.0" />
-        <!-- referencia https://learn.microsoft.com/pt-br/nuget/consume-packages/package-references-in-project-files#controlling-dependency-version -->
-        <PackageReference Include="NLua" Version="1.7.5">
-            <PrivateAssets>build;analyzers</PrivateAssets>
-        </PackageReference>
+		<None Include="README.md" Pack="True" PackagePath="\" />
+		<None Include="LICENSE.md" Pack="True" PackagePath="\" />
+		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
+		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.1" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="7.0.1" />
+        <PackageReference Include="NLua" Version="1.7.6" />
+        <Reference Include="GodotSharp">
+            <HintPath>..\assemblies\Debug\GodotSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="GodotSharpEditor">
+            <HintPath>..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
+        </Reference>
     </ItemGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DefineConstants>DEBUG;TOOLS;RELEASE</DefineConstants>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
-
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<PackageReference Include="Cobilas.Godot.Utility" Version="6.3.1" />
-    </ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<Reference Include="GodotSharp">
-			<HintPath>..\assemblies\Debug\GodotSharp.dll</HintPath>
-		</Reference>
-		<Reference Include="GodotSharpEditor">
-			<HintPath>..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
-		</Reference>
-	    <ProjectReference Include="..\com.cobilas.godot.utility\com.cobilas.godot.utility.csproj" />
-	</ItemGroup>
 </Project>
