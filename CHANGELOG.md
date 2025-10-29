@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.5] (29/10/2025)
+
+### Changed
+- **Version Update**: Bumped package version from 1.2.4 to 1.2.5
+- **Build Configuration**: 
+  - Simplified package output path from `C:\local.nuget\$(Configuration)` to `C:\local.nuget`
+- **Dependencies**: Updated to latest versions:
+  - `Cobilas.Core.Net4x` from 2.7.1 to 2.7.2
+  - `Cobilas.Godot.Utility` from 7.0.1 to 7.0.2
+- **Project Structure**: 
+  - Updated .gitignore to simplified structure focusing on essential C# project folders and files
+  - Removed Godot-specific ignores in favor of minimal project structure
+
 ## [1.2.4] (29/10/2025)
 
 ### Changed
