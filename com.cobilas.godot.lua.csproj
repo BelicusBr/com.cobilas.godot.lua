@@ -38,7 +38,7 @@
 		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
 		<PackageReference Include="Cobilas.Godot.Utility" Version="7.1.1" />
-        <PackageReference Include="NLua" Version="1.7.6" />
+        <PackageReference Include="NLua" Version="1.7.6">
             <PrivateAssets>build;analyzers</PrivateAssets>
         </PackageReference>
         <Reference Include="GodotSharp">
