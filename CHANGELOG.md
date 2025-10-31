@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.7] - (30/10/2025)
+
+### Changed
+- **Version Update**: Bumped package version from 1.2.6 to 1.2.7
+- **Dependency Configuration**: Added PrivateAssets configuration to NLua package reference to exclude build and analyzers from consuming projects
+
+### Technical Notes
+- The PrivateAssets configuration for NLua helps prevent build assets and analyzers from being transitively included in projects that consume this package, 
+reducing potential conflicts and improving build performance
+
 ## [1.2.6] - (29/10/2025)
 
 ### Changed
