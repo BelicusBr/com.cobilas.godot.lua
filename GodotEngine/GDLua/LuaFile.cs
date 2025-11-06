@@ -34,7 +34,7 @@ public sealed class LuaFile : IDisposable, ILuaFile {
         if (Archive.Exists(confg.FilePath)) {
             archive = new ArchiveInfo(confg.FilePath);
             lastWriteTime = archive.GetLastWriteTime;
-            luaFile = (IGodotArchiveStream)archive.Open(FileAccess.ReadWrite);
+            luaFile = (IGodotArchiveStream)archive.Open(FileAccess.ReadWrite, StreamType.GDStream);
         } else throw new FileNotFoundException(confg.FilePath);
         _ = lua.DoString(luaFile.Read());
     }

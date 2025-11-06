@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!--<Import Project="com.cobilas.godot.lua.targets"/>-->
     <PropertyGroup>
         <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
         <LangVersion>default</LangVersion>
@@ -33,11 +34,15 @@
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     </PropertyGroup>
     <ItemGroup>
+		<None Include="obss.txt" />
 		<None Include="README.md" Pack="True" PackagePath="\" />
 		<None Include="LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
+		<None Include="build\Cobilas.Godot.Lua.targets" Pack="true" PackagePath="build\" />
+		<None Include="lib\luadlls\**\*" Pack="true" PackagePath="lib\luadlls\" />
+		<None Include="lib\com.cobilas.godot.lua.gdnlib" Pack="true" PackagePath="lib\" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="7.2.2" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.2" />
         <PackageReference Include="NLua" Version="1.7.6">
             <PrivateAssets>build;analyzers</PrivateAssets>
         </PackageReference>
