@@ -21,6 +21,7 @@ public interface ILuaFile {
     /// <param name="pathField">The path to the field in the Lua file.</param>
     /// <param name="value">The value to assign to the field.</param>
     void SetField(string pathField, object value);
+    LuaFunc GetLuaFunc(string pathFunc);
     /// <summary>Invokes a function defined in the Lua file.</summary>
     /// <param name="methodName">The name of the function to invoke.</param>
     /// <param name="args">The arguments to pass to the function.</param>

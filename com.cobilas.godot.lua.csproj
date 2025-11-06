@@ -6,11 +6,11 @@
         <RootNamespace>Cobilas</RootNamespace>
         <AssemblyName>com.cobilas.godot.lua</AssemblyName>
         <NoWarn>1701;1702;IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
-        <BaseOutputPath>bin\$(Configuration)</BaseOutputPath>
+        <BaseOutputPath>bin\</BaseOutputPath>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <Title>Cobilas Godot Lua</Title>
         <Authors>BélicusBr</Authors>
-        <Version>1.2.8</Version>
+        <Version>1.3.0</Version>
         <PackageId>Cobilas.Godot.Lua</PackageId>
         <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
