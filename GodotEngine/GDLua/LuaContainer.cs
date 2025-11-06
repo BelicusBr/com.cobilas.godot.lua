@@ -140,9 +140,7 @@ public sealed class LuaContainer : IDisposable, ILuaFile {
             value = (T)table.ToObject(value, lua[pathField] as LuaTable);
         else throw new InvalidCastException($"The type {typeof(T)} does not have an `ObjectToLuaTable` converter defined.");
     }
-	/// <summary>Gets a Lua function from the specified path.</summary>
-	/// <param name="pathFunc">The path to the Lua function.</param>
-	/// <returns>A <see cref="LuaFunc"/> wrapper for the Lua function.</returns>
+	/// <inheritdoc/>
 	/// <exception cref="ObjectDisposedException">Thrown when the container has been disposed.</exception>
 	/// <exception cref="LuaException">Thrown when the specified path does not point to a Lua function.</exception>
 	public LuaFunc GetLuaFunc(string pathFunc) {
