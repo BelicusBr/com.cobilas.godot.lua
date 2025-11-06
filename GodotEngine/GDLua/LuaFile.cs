@@ -2,8 +2,8 @@ using NLua;
 using System;
 using System.IO;
 using NLua.Exceptions;
-using Cobilas.GodotEngine.Utility.IO;
 using Cobilas.GodotEngine.GDLua.Interfaces;
+using Cobilas.GodotEngine.Utility.IO;
 using Cobilas.GodotEngine.Utility.IO.Interfaces;
 
 namespace Cobilas.GodotEngine.GDLua;
@@ -87,8 +87,17 @@ public sealed class LuaFile : IDisposable, ILuaFile {
             value = (T)table.ToObject(value, lua[pathField] as LuaTable);
         else throw new InvalidCastException($"The type {typeof(T)} does not have an `ObjectToLuaTable` converter defined.");
     }
-    /// <summary>Releases all resources used by the LuaFile instance.</summary>
-    public void Dispose() {
+	/// <inheritdoc/>
+	/// <exception cref="ObjectDisposedException">Thrown when the LuaFile has been disposed.</exception>
+	/// <exception cref="LuaException">Thrown when the specified path does not point to a Lua function.</exception>
+	public LuaFunc GetLuaFunc(string pathFunc) {
+		ObjectDisposed(disposed);
+		RefreshBuffer();
+		if (lua[pathFunc] is LuaFunction lf) return new(lf);
+		else throw new LuaException($"{pathFunc} is {nameof(LuaField)}");
+	}
+	/// <summary>Releases all resources used by the LuaFile instance.</summary>
+	public void Dispose() {
         ObjectDisposed(disposed);
         disposed = true;
         ((IDisposable)lua).Dispose();

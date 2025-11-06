@@ -43,9 +43,22 @@ public struct LuaField(string fieldName, object? value) : IConvertible, IDisposa
     /// <summary>Gets the data type of the Lua field value.</summary>
     /// <value>The <see cref="LuaFieldType"/> representing the value's data type.</value>
     public readonly LuaFieldType ValueType => GetLuaFieldType(_value);
-    /// <summary>Releases all resources used by the LuaField</summary>
-    /// <exception cref="ObjectDisposedException">Thrown when the LuaField has already been disposed.</exception>
-    public void Dispose() {
+	/// <summary>Gets a value indicating whether the field value is a Lua table.</summary>
+	/// <returns>true if the value is a Lua table; otherwise, false.</returns>
+	/// <exception cref="ObjectDisposedException">Thrown when the LuaField has been disposed.</exception>
+	public readonly bool IsLuaTable => disposed ? throw new ObjectDisposedException(nameof(LuaField)) : _value is LuaTable;
+	/// <summary>Converts the Lua table value to the specified type.</summary>
+	/// <typeparam name="T">The target type to convert the Lua table to.</typeparam>
+	/// <param name="result">The reference variable to assign the converted table data to.</param>
+	/// <exception cref="ObjectDisposedException">Thrown when the LuaField has been disposed.</exception>
+	public readonly void LuaTableTo<T>(ref T result) {
+		if (disposed) throw new ObjectDisposedException(nameof(LuaField));
+		if (ObjectToLuaTable.TryGetValue(typeof(T), out ObjectToLuaTable table))
+			result = (T)table.ToObject(result, _value as LuaTable);
+	}
+	/// <summary>Releases all resources used by the LuaField</summary>
+	/// <exception cref="ObjectDisposedException">Thrown when the LuaField has already been disposed.</exception>
+	public void Dispose() {
         if (disposed) throw new ObjectDisposedException(nameof(LuaField));
         disposed = true;
         _fieldName = null;

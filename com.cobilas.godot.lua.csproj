@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<!--<Import Project="com.cobilas.godot.lua.targets"/>-->
+	<Import Project="build/Cobilas.Godot.Lua.props"/>
     <PropertyGroup>
         <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
         <LangVersion>default</LangVersion>
@@ -11,7 +11,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <Title>Cobilas Godot Lua</Title>
         <Authors>BélicusBr</Authors>
-        <Version>1.2.9</Version>
+        <Version>$(GDLuaPackageVersion)</Version>
         <PackageId>Cobilas.Godot.Lua</PackageId>
         <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -34,10 +34,10 @@
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     </PropertyGroup>
     <ItemGroup>
-		<None Include="obss.txt" />
 		<None Include="README.md" Pack="True" PackagePath="\" />
 		<None Include="LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
+		<None Include="build\Cobilas.Godot.Lua.props" Pack="true" PackagePath="build\" />
 		<None Include="build\Cobilas.Godot.Lua.targets" Pack="true" PackagePath="build\" />
 		<None Include="lib\luadlls\**\*" Pack="true" PackagePath="lib\luadlls\" />
 		<None Include="lib\com.cobilas.godot.lua.gdnlib" Pack="true" PackagePath="lib\" />
