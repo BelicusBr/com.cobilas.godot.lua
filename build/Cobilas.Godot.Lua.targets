@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+	<Import Project="Cobilas.Godot.Lua.props"/>
 	<PropertyGroup>
-		<GDLuaPackFolde>$(NuGetPackageRoot)\cobilas.godot.lua\1.2.9</GDLuaPackFolde>
+		<!--<GDLuaPackFolde>$(NuGetPackageRoot)\cobilas.godot.lua\1.2.9</GDLuaPackFolde>-->
 		<GDLuaLibFolder>$(GDLuaPackFolde)\lib\luadlls</GDLuaLibFolder>
 		<OutGDLuaLibs>$(OutputPath)luadlls</OutGDLuaLibs>
 	</PropertyGroup>

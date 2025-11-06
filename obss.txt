@@ -1,5 +1,0 @@
-Problemas detectados
-As dlls lua correspondente por OS não e exportado para o projeto construido.
-Solução é copiar as dlls para todos os OS's para a pasta debug do projeto e 
-criar um arquivo .gdnlib com os caminhos das dlls para cada OS alvo presentes
-no pacote KeraLua usando um .csproj.taget .
