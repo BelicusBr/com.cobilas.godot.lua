@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<GDLuaPackageVersion>1.3.1</GDLuaPackageVersion>
+		<GDLuaPackFolde>$(NuGetPackageRoot)\cobilas.godot.lua\$(GDLuaPackageVersion)</GDLuaPackFolde>
+	</PropertyGroup>
+</Project>

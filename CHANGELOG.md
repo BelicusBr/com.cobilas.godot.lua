@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - (06/11/2025)
+
+### Added
+- **Build System**: Added Cobilas.Godot.Lua.props file for centralized package version management
+- **MSBuild Properties**: Implemented GDLuaPackageVersion and GDLuaPackFolde properties for build configuration
+
+### Changed
+- **Version Management**: Centralized version control using MSBuild properties instead of hardcoded values
+- **Build Configuration**: Updated Cobilas.Godot.Lua.targets to use imported properties from props file
+- **Project Structure**: Removed obsolete obss.txt file and cleaned up project configuration
+
+### Technical Notes
+- The new props file allows for consistent version management across build targets and project configuration
+- Package folder paths are now dynamically resolved using NuGetPackageRoot variable
+
+## [1.3.0] - (06/11/2025)
+
+### Added
+- **Lua Function Support**: Introduced LuaFunc struct for safe Lua function invocation and resource management
+- **Function Access**: Added GetLuaFunc method to ILuaFile interface and implementations
+- **Table Conversion**: Enhanced LuaField with IsLuaTable property and LuaTableTo method for type conversion
+- **Function Wrapper**: New LuaFunc struct provides proper disposal and exception handling for Lua functions
+
+### Features
+- **Safe Invocation**: LuaFunc provides multiple Invoke methods with proper return value handling
+- **Resource Management**: Implements IDisposable for proper cleanup of underlying Lua functions
+- **Type Safety**: Improved type conversion capabilities for Lua table data
+
+### Changed
+- **Version Update**: Bumped package version from 1.2.9 to 1.3.0
+- **Code Documentation**: Enhanced XML documentation for better IntelliSense support
+- **Interface Consistency**: Unified method signatures across LuaFile and LuaContainer implementations
+
+## [1.2.9] - (06/11/2025)
+
+### Added
+- **Cross-Platform Support**: Added Lua DLLs for all major platforms (Windows, Linux, macOS, Android, iOS)
+- **Build System**: Implemented Cobilas.Godot.Lua.targets for automatic library deployment
+- **Godot Integration**: Added com.cobilas.godot.lua.gdnlib configuration file for Godot plugin system
+- **MSBuild Integration**: Created custom build target to copy Lua libraries and configuration files
+
+### Features
+- **Automatic Deployment**: Build system automatically copies platform-specific Lua DLLs to output directory
+- **Plugin Configuration**: Proper Godot native plugin configuration for all target platforms
+- **Dependency Management**: Updated Cobilas.Godot.Utility dependency from 7.2.2 to 7.3.2
+
+### Fixed
+- **Stream Access**: Corrected stream type usage in LuaFile constructor to use GDStream for proper file handling
+
+### Technical Notes
+- The build target automatically copies Lua libraries for all supported platforms during build process
+- The .gdnlib file provides proper configuration for Godot's native plugin system across different operating systems
+- Platform-specific libraries include: Windows (x86, x64, ARM, ARM64), Linux (x64, ARM64), macOS, Android (ARM, ARM64, x86, x64), and iOS
+
 ## [1.2.8] - (31/10/2025)
 
 ### Changed
