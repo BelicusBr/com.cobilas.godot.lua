@@ -1,4 +1,4 @@
-# MIT License
+MIT License
 
 ## Copyright (c) 2025 Gabriel dos Santos Severino
 ### en-us
@@ -21,20 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ### pt-br
-… concedida permiss„o, gratuitamente, a qualquer pessoa que obtenha uma cÛpia
-deste software e arquivos de documentaÁ„o associados (o "Software"), para lidar
-com o Software sem restriÁıes, incluindo, sem limitaÁ„o, os direitos
+√â concedida permiss√£o, gratuitamente, a qualquer pessoa que obtenha uma c√≥pia
+deste software e arquivos de documenta√ß√£o associados (o "Software"), para lidar
+com o Software sem restri√ß√µes, incluindo, sem limita√ß√£o, os direitos
 de usar, copiar, modificar, fundir, publicar, distribuir, sublicenciar e/ou vender
-cÛpias do Software, e para permitir que as pessoas a quem o Software È
-fornecido o faÁam, sujeitas ‡s seguintes condiÁıes:
+c√≥pias do Software, e para permitir que as pessoas a quem o Software √©
+fornecido o fa√ßam, sujeitas √†s seguintes condi√ß√µes:
 
-O aviso de direitos autorais acima e este aviso de permiss„o devem ser incluÌdos em todas as
-cÛpias ou partes substanciais do Software.
+O aviso de direitos autorais acima e este aviso de permiss√£o devem ser inclu√≠dos em todas as
+c√≥pias ou partes substanciais do Software.
 
-O SOFTWARE … FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU
-IMPLÕCITA, INCLUINDO, MAS N√O SE LIMITANDO ¿S GARANTIAS DE COMERCIALIZA«√O,
-ADEQUA«√O A UM FIM ESPECÕFICO E N√O VIOLA«√O. EM NENHUMA HIP”TESE OS
-AUTORES OU DETENTORES DOS DIREITOS AUTORAIS SER√O RESPONS¡VEIS POR QUAISQUER REIVINDICA«’ES, DANOS OU OUTRAS
-RESPONSABILIDADES, SEJA EM A«√O CONTRATUAL, EXTRACONTRATUAL OU DE OUTRA NATUREZA, DECORRENTES DE,
-OU RELACIONADAS COM O SOFTWARE OU O USO OU OUTRAS NEGOCIA«’ES COM O
+O SOFTWARE √â FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU
+IMPL√çCITA, INCLUINDO, MAS N√ÉO SE LIMITANDO √ÄS GARANTIAS DE COMERCIALIZA√á√ÉO,
+ADEQUA√á√ÉO A UM FIM ESPEC√çFICO E N√ÉO VIOLA√á√ÉO. EM NENHUMA HIP√ìTESE OS
+AUTORES OU DETENTORES DOS DIREITOS AUTORAIS SER√ÉO RESPONS√ÅVEIS POR QUAISQUER REIVINDICA√á√ïES, DANOS OU OUTRAS
+RESPONSABILIDADES, SEJA EM A√á√ÉO CONTRATUAL, EXTRACONTRATUAL OU DE OUTRA NATUREZA, DECORRENTES DE,
+OU RELACIONADAS COM O SOFTWARE OU O USO OU OUTRAS NEGOCIA√á√ïES COM O
 SOFTWARE.
