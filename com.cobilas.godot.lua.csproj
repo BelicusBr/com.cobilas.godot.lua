@@ -37,20 +37,21 @@
 		<None Include="README.md" Pack="True" PackagePath="\" />
 		<None Include="LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="CHANGELOG.md" Pack="true" PackagePath="\" />
-		<None Include="build\Cobilas.Godot.Lua.props" Pack="true" PackagePath="build\" />
+		<!--<None Include="build\Cobilas.Godot.Lua.props" Pack="true" PackagePath="build\" />
 		<None Include="build\Cobilas.Godot.Lua.targets" Pack="true" PackagePath="build\" />
 		<None Include="lib\luadlls\**\*" Pack="true" PackagePath="lib\luadlls\" />
-		<None Include="lib\com.cobilas.godot.lua.gdnlib" Pack="true" PackagePath="lib\" />
+		<None Include="lib\com.cobilas.godot.lua.gdnlib" Pack="true" PackagePath="lib\" />-->
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
 		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.2" />
-        <PackageReference Include="NLua" Version="1.7.6">
-            <PrivateAssets>build;analyzers</PrivateAssets>
-        </PackageReference>
+		<PackageReference Include="MoonSharp" Version="2.0.0" />
         <Reference Include="GodotSharp">
             <HintPath>..\assemblies\Debug\GodotSharp.dll</HintPath>
         </Reference>
         <Reference Include="GodotSharpEditor">
             <HintPath>..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
         </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="GodotEngine\GDLua\" />
     </ItemGroup>
 </Project>

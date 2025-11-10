@@ -1,6 +1,6 @@
-using NLua;
 using System;
 using System.Linq;
+using MoonSharp.Interpreter;
 
 namespace Cobilas.GodotEngine.GDLua;
 /// <summary>
@@ -46,7 +46,7 @@ public struct LuaField(string fieldName, object? value) : IConvertible, IDisposa
 	/// <summary>Gets a value indicating whether the field value is a Lua table.</summary>
 	/// <returns>true if the value is a Lua table; otherwise, false.</returns>
 	/// <exception cref="ObjectDisposedException">Thrown when the LuaField has been disposed.</exception>
-	public readonly bool IsLuaTable => disposed ? throw new ObjectDisposedException(nameof(LuaField)) : _value is LuaTable;
+	public readonly bool IsLuaTable => disposed ? throw new ObjectDisposedException(nameof(LuaField)) : _value is Table;
 	/// <summary>Converts the Lua table value to the specified type.</summary>
 	/// <typeparam name="T">The target type to convert the Lua table to.</typeparam>
 	/// <param name="result">The reference variable to assign the converted table data to.</param>
@@ -54,7 +54,7 @@ public struct LuaField(string fieldName, object? value) : IConvertible, IDisposa
 	public readonly void LuaTableTo<T>(ref T result) {
 		if (disposed) throw new ObjectDisposedException(nameof(LuaField));
 		if (ObjectToLuaTable.TryGetValue(typeof(T), out ObjectToLuaTable table))
-			result = (T)table.ToObject(result, _value as LuaTable);
+			result = (T)table.ToObject(result, _value as Table);
 	}
 	/// <summary>Releases all resources used by the LuaField</summary>
 	/// <exception cref="ObjectDisposedException">Thrown when the LuaField has already been disposed.</exception>
@@ -211,7 +211,7 @@ public struct LuaField(string fieldName, object? value) : IConvertible, IDisposa
     /// <param name="f">The LuaField to convert.</param>
     /// <returns>A LuaTable representation of the field value.</returns>
     /// <exception cref="InvalidCastException">Thrown when the field value is not a LuaTable.</exception>
-    public static explicit operator LuaTable(LuaField f) => f._value as LuaTable ?? throw new InvalidCastException($"{nameof(LuaField)} is null");
+    public static explicit operator Table(LuaField f) => f._value as Table ?? throw new InvalidCastException($"{nameof(LuaField)} is null");
     /// <summary>Converts a LuaField to its TypeCode</summary>
     /// <param name="f">The LuaField to convert.</param>
     /// <returns>The TypeCode of the field value.</returns>
