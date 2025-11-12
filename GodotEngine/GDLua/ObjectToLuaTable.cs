@@ -1,5 +1,5 @@
-using NLua;
 using System;
+using MoonSharp.Interpreter;
 using System.Collections.Generic;
 
 namespace Cobilas.GodotEngine.GDLua;
@@ -14,12 +14,12 @@ public abstract class ObjectToLuaTable {
     /// <summary>Converts a C# object to a Lua table.</summary>
     /// <param name="obj">The C# object to convert.</param>
     /// <param name="table">The Lua table to populate with the object's data.</param>
-    public abstract void ToLuaTable(object? obj, LuaTable? table);
+    public abstract void ToLuaTable(object? obj, Table? table);
     /// <summary>Converts a Lua table back to a C# object.</summary>
     /// <param name="obj">The original object instance (may be used for context).</param>
     /// <param name="table">The Lua table containing the serialized data.</param>
     /// <returns>A C# object reconstructed from the Lua table data.</returns>
-    public abstract object ToObject(object? obj, LuaTable? table);
+    public abstract object ToObject(object? obj, Table? table);
     /// <summary>Attempts to retrieve a converter for the specified type.</summary>
     /// <param name="type">The type to find a converter for.</param>
     /// <param name="value">When this method returns, contains the converter associated with the specified type, if found; otherwise, null.</param>
