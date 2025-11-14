@@ -44,11 +44,13 @@
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
 		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.2" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
-        <Reference Include="GodotSharp">
-            <HintPath>..\assemblies\Debug\GodotSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="GodotSharpEditor">
-            <HintPath>..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
-        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="GodotSharp">
+        <HintPath>..\..\..\assemblies\Debug\GodotSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="GodotSharpEditor">
+        <HintPath>..\..\..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>

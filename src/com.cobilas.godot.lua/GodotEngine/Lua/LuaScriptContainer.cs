@@ -1,19 +1,14 @@
-using System;
-using System.IO;
+﻿using System;
+using System.Text;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
-using Cobilas.GodotEngine.Utility.IO;
-using Cobilas.GodotEngine.Utility.IO.Interfaces;
 
-namespace Cobilas.GodotEngine.GDLua;
-public sealed class LuaScriptFile : LuaScript {
+namespace Cobilas.GodotEngine.Lua;
+
+public sealed class LuaScriptContainer : LuaScript {
 	private Script? script;
-	private ArchiveInfo? info;
 	private bool disposedValue;
-	private DateTime _LastWriteTimeUtc;
-	private IGodotArchiveStream? archiveStream;
 
-	public bool RefreshLuaScript { get; set; }
 	public override IScriptLoader ScriptLoader {
 		get => GetScript().Options.ScriptLoader;
 		set => GetScript().Options.ScriptLoader = value;
@@ -27,26 +22,42 @@ public sealed class LuaScriptFile : LuaScript {
 		set => GetScript().Options.DebugPrint = value;
 	}
 
-	public LuaScriptFile(string? path) {
-		if (path is null) throw new ArgumentNullException(nameof(path));
-		RefreshLuaScript = false;
-		info = new(path);
-		_LastWriteTimeUtc = info.GetLastWriteTimeUtc;
-		archiveStream = (IGodotArchiveStream)info.Open(FileAccess.Read, StreamType.GDStream);
-		archiveStream.Read(out string stg);
-		_ = (script = new()).DoString(stg);
+	public LuaScriptContainer(string? code) {
+		if (code is null) throw new ArgumentNullException(nameof(code));
+		_ = (script = new()).DoString(code);
+	}
+
+	public LuaScriptContainer(StringBuilder? builder) :
+		this((builder ?? throw new ArgumentNullException(nameof(builder))).ToString())
+	{ }
+
+	public LuaScriptContainer(LuaScriptContainerBuilder? builder) :
+		this((builder ?? throw new ArgumentNullException(nameof(builder))).ToString())
+	{ }
+
+	public override Table CreateTable(string? pathField) {
+		Table result = new(script);
+		GetScript().Globals[pathField] = result;
+		return result;
 	}
 
 	public override LuaField GetField(string? pathField) {
-		RefershBuffer();
-		if (string.IsNullOrEmpty(pathField)) 
+		if (string.IsNullOrEmpty(pathField))
 			throw new ArgumentNullException(nameof(pathField), $"The argument {nameof(pathField)} is null or empty!");
 		DynValue dyn = GetScript().Globals.Get(pathField);
 		return new(pathField!, DynValueToObject(dyn));
 	}
 
+	public override LuaFunc GetFunction(string? pathFunction) {
+		if (string.IsNullOrEmpty(pathFunction))
+			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
+		RefIdObject? closure = (RefIdObject?)DynValueToObject(GetScript().Globals.Get(pathFunction));
+		if (closure is Closure clr)
+			return new(script, pathFunction!, clr);
+		return new(script, pathFunction!, closure as CallbackFunction);
+	}
+
 	public override LuaField[] GetTuplaField(string[]? pathFields) {
-		RefershBuffer();
 		if (pathFields is null)
 			throw new ArgumentNullException(nameof(pathFields));
 		DynValue dyn = GetScript().Globals.Get(pathFields);
@@ -57,62 +68,43 @@ public sealed class LuaScriptFile : LuaScript {
 		return fields;
 	}
 
-	public override LuaFunc GetFunction(string? pathFunction) {
-		RefershBuffer();
-		if (string.IsNullOrEmpty(pathFunction))
-			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
-		return new();
-	}
-
 	public override void SetField(string? pathField, object? value) {
-		RefershBuffer();
 		if (string.IsNullOrEmpty(pathField))
 			throw new ArgumentNullException(nameof(pathField), $"The argument {nameof(pathField)} is null or empty!");
 		else if (value is null)
 			throw new ArgumentNullException(nameof(value));
-		GetScript().Globals.Set(pathField, ObjectToDynValue(value));
+		GetScript().Globals.Set(pathField, ObjectToDynValue(script, value));
+	}
+
+	public override void SetFunction(string? pathFunction, Delegate? value) {
+		if (string.IsNullOrEmpty(pathFunction))
+			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
+		GetScript().Globals.Set(pathFunction, DynValue.FromObject(GetScript(), value));
 	}
 
 	public override void SetTuplaField(string[]? pathFields, object[]? value) {
-		RefershBuffer();
 		if (pathFields is null)
 			throw new ArgumentNullException(nameof(pathFields));
 		else if (value is null)
 			throw new ArgumentNullException(nameof(value));
 		DynValue?[] tupla = new DynValue[value.LongLength];
 		for (long I = 0; I < value.LongLength; I++)
-			tupla[I] = ObjectToDynValue(value[I]);
+			tupla[I] = ObjectToDynValue(script, value[I]);
 		GetScript().Globals.Set(pathFields, DynValue.NewTuple(tupla));
 	}
 
-	public override void SetFunction(string? pathFunction, Delegate? value) {
-		RefershBuffer();
-		if (string.IsNullOrEmpty(pathFunction))
-			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
-		GetScript().Globals.Set(pathFunction, DynValue.FromObject(GetScript(), value));
-	}
-
-	public override void Dispose() {
-		ObjectDisposed();
-		disposedValue = true;
-		info?.Dispose();
-		archiveStream?.Dispose();
-		info = null;
-		script = null;
-		archiveStream = null;
+	protected override void Dispose(bool disposing) {
+		if (!disposedValue) {
+			if (disposing) {
+				script = null;
+			}
+			disposedValue = true;
+		} else ObjectDisposed();
 	}
 
 	private void ObjectDisposed() {
 		if (disposedValue)
 			throw new ObjectDisposedException(nameof(LuaScriptFile));
-	}
-
-	private void RefershBuffer() {
-		ObjectDisposed();
-		if (!RefreshLuaScript) return;
-		else if (_LastWriteTimeUtc == (_LastWriteTimeUtc = info!.GetLastWriteTimeUtc)) return;
-		archiveStream!.Read(out string stg);
-		_ = (script = new()).DoString(stg);
 	}
 
 	private Script GetScript() {

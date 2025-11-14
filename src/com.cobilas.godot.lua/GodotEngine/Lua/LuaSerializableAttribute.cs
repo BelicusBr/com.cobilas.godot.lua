@@ -1,6 +1,6 @@
 using System;
 
-namespace Cobilas.GodotEngine.GDLua;
+namespace Cobilas.GodotEngine.Lua;
 /// <summary>Indicates that a type is serializable for Lua interoperability.</summary>
 /// <remarks>
 /// Apply this attribute to classes or structures to mark them as serializable

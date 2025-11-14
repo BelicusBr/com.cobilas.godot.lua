@@ -1,4 +1,4 @@
-namespace Cobilas.GodotEngine.GDLua.Interfaces;
+namespace Cobilas.GodotEngine.Lua.Interfaces;
 /// <summary>Represents a basic Lua table element with a name and value.</summary>
 public interface ILuaTable {
     /// <summary>Gets the name of the Lua table element.</summary>

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using MoonSharp.Interpreter;
+using System;
 
-namespace Cobilas.GodotEngine.GDLua;
+namespace Cobilas.GodotEngine.Lua;
 public enum LuaTypeCode : byte {
 	/// <inheritdoc cref="TypeCode.Empty"/>
 	Empty = 0,
@@ -38,5 +39,18 @@ public enum LuaTypeCode : byte {
 	DateTime = 16,
 	/// <inheritdoc cref="TypeCode.String"/>
 	String = 18,
-	Table = 19
+	/// <inheritdoc cref="DataType.Table"/>
+	Table = 19,
+	/// <inheritdoc cref="DataType.Function"/>
+	Function = 20,
+	/// <inheritdoc cref="DataType.UserData"/>
+	UserData = 21,
+	/// <inheritdoc cref="DataType.ClrFunction"/>
+	ClrFunction = 22,
+	/// <inheritdoc cref="DataType.TailCallRequest"/>
+	TailCallRequest = 23,
+	/// <inheritdoc cref="DataType.Thread"/>
+	Thread = 24,
+	/// <inheritdoc cref="DataType.YieldRequest"/>
+	YieldRequest = 25
 }

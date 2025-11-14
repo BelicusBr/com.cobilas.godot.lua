@@ -2,9 +2,9 @@ using System.Text;
 using System.Collections;
 using Cobilas.Collections;
 using System.Collections.Generic;
-using Cobilas.GodotEngine.GDLua.Interfaces;
+using Cobilas.GodotEngine.Lua.Interfaces;
 
-namespace Cobilas.GodotEngine.GDLua;
+namespace Cobilas.GodotEngine.Lua;
 /// <summary>Represents a Lua table item that can contain multiple table elements and supports enumeration.</summary>
 /// <remarks>
 /// This structure implements <see cref="ILuaTableItem"/> to provide collection capabilities

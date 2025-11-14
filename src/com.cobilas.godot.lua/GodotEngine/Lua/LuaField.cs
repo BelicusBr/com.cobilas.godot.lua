@@ -1,17 +1,26 @@
 using System;
+using System.Globalization;
 using MoonSharp.Interpreter;
 using System.Collections.Generic;
+using Cobilas.GodotEngine.Lua.Exceptions;
 
-namespace Cobilas.GodotEngine.GDLua;
+namespace Cobilas.GodotEngine.Lua;
+
 public struct LuaField : IConvertible, IDisposable {
 
 	public object? Value { get; private set; }
 	public string FieldName { get; private set; }
 	public readonly LuaTypeCode LuaTypeCode => GetLuaTypeCode(Value);
+	public readonly Type FieldType => Value is null ? NullObject.Null.GetType() : Value.GetType();
 
 	internal LuaField(string fieldName, object? value) {
 		Value = value;
 		FieldName = fieldName;
+	}
+
+	public void ToObject<T>(ref T value) {
+		if (!CustomConverters.TryGetValue(typeof(T), out ObjectToLuaTable table)) return;
+		value = (T)table.ToObject(value, (Table?)this);
 	}
 
 	public void Dispose() {
@@ -171,33 +180,58 @@ public struct LuaField : IConvertible, IDisposable {
 			decimal => LuaTypeCode.Decimal,
 			DateTime => LuaTypeCode.DateTime,
 			Table => LuaTypeCode.Table,
+			Closure => LuaTypeCode.Function,
+			UserData => LuaTypeCode.UserData,
+			CallbackFunction => LuaTypeCode.ClrFunction,
+			TailCallData => LuaTypeCode.TailCallRequest,
+			Coroutine => LuaTypeCode.Thread,
+			YieldRequest => LuaTypeCode.YieldRequest,
 			_ => LuaTypeCode.Object
 		};
-	
+
+	public static LuaTypeCode GetLuaTypeCode(LuaField field) => GetLuaTypeCode(field.Value);
+
 	public static explicit operator LuaField((string, object?) value) => new(value.Item1, value.Item2);
 	public static explicit operator LuaField(Tuple<string, object?> value) => new(value.Item1, value.Item2);
 	public static explicit operator LuaField(KeyValuePair<string, object?> value) => new(value.Key, value.Value);
 
-	public static explicit operator string(LuaField field) => Convert.ToString(field);
-	public static explicit operator char(LuaField field) => Convert.ToChar(field);
-	public static explicit operator bool(LuaField field) => Convert.ToBoolean(field);
-	public static explicit operator byte(LuaField field) => Convert.ToByte(field);
-	public static explicit operator sbyte(LuaField field) => Convert.ToSByte(field);
-	public static explicit operator short(LuaField field) => Convert.ToInt16(field);
-	public static explicit operator ushort(LuaField field) => Convert.ToUInt16(field);
-	public static explicit operator int(LuaField field) => Convert.ToInt32(field);
-	public static explicit operator uint(LuaField field) => Convert.ToUInt32(field);
-	public static explicit operator long(LuaField field) => Convert.ToInt64(field);
-	public static explicit operator ulong(LuaField field) => Convert.ToUInt64(field);
-	public static explicit operator float(LuaField field) => Convert.ToSingle(field);
-	public static explicit operator double(LuaField field) => Convert.ToDouble(field);
-	public static explicit operator decimal(LuaField field) => Convert.ToDecimal(field);
-	public static explicit operator DateTime(LuaField field) => Convert.ToDateTime(field);
+	public static explicit operator string(LuaField field) => Convert.ToString(field, CultureInfo.InvariantCulture);
+	public static explicit operator char(LuaField field) => Convert.ToChar(field, CultureInfo.InvariantCulture);
+	public static explicit operator bool(LuaField field) => Convert.ToBoolean(field, CultureInfo.InvariantCulture);
+	public static explicit operator byte(LuaField field) => Convert.ToByte(field, CultureInfo.InvariantCulture);
+	public static explicit operator sbyte(LuaField field) => Convert.ToSByte(field, CultureInfo.InvariantCulture);
+	public static explicit operator short(LuaField field) => Convert.ToInt16(field, CultureInfo.InvariantCulture);
+	public static explicit operator ushort(LuaField field) => Convert.ToUInt16(field, CultureInfo.InvariantCulture);
+	public static explicit operator int(LuaField field) => Convert.ToInt32(field, CultureInfo.InvariantCulture);
+	public static explicit operator uint(LuaField field) => Convert.ToUInt32(field, CultureInfo.InvariantCulture);
+	public static explicit operator long(LuaField field) => Convert.ToInt64(field, CultureInfo.InvariantCulture);
+	public static explicit operator ulong(LuaField field) => Convert.ToUInt64(field, CultureInfo.InvariantCulture);
+	public static explicit operator float(LuaField field) => Convert.ToSingle(field, CultureInfo.InvariantCulture);
+	public static explicit operator double(LuaField field) => Convert.ToDouble(field, CultureInfo.InvariantCulture);
+	public static explicit operator decimal(LuaField field) => Convert.ToDecimal(field, CultureInfo.InvariantCulture);
+	public static explicit operator DateTime(LuaField field) => Convert.ToDateTime(field, CultureInfo.InvariantCulture);
 
 	public static explicit operator LuaTypeCode(LuaField field) => field.LuaTypeCode;
-	public static explicit operator Table?(LuaField field) {
-		if (field.LuaTypeCode != LuaTypeCode.Table)
-			throw new InvalidCastException($"LuaField is not of type {nameof(Table)}!");
-		return field.Value as Table;
-	}
+	public static explicit operator Table(LuaField field) => IConvert<Table>(field, CultureInfo.InvariantCulture);
+	public static explicit operator Closure(LuaField field) => IConvert<Closure>(field, CultureInfo.InvariantCulture);
+	public static explicit operator CallbackFunction(LuaField field) => IConvert<CallbackFunction>(field, CultureInfo.InvariantCulture);
+	public static explicit operator Coroutine(LuaField field) => IConvert<Coroutine>(field, CultureInfo.InvariantCulture);
+	public static explicit operator TailCallData(LuaField field) => IConvert<TailCallData>(field, CultureInfo.InvariantCulture);
+	public static explicit operator UserData(LuaField field) => IConvert<UserData>(field, CultureInfo.InvariantCulture);
+	public static explicit operator YieldRequest(LuaField field) => IConvert<YieldRequest>(field, CultureInfo.InvariantCulture);
+
+	private static object IConvert(LuaField field, IFormatProvider provider)
+		=> field.LuaTypeCode switch {
+			LuaTypeCode.Empty => throw new ArgumentNullException(nameof(field), "The input value is empty!"),
+			LuaTypeCode.Table => (Table)field.Value!,
+			LuaTypeCode.Function => (Closure)field.Value!,
+			LuaTypeCode.UserData => (UserData)field.Value!,
+			LuaTypeCode.ClrFunction => (CallbackFunction)field.Value!,
+			LuaTypeCode.TailCallRequest => (TailCallData)field.Value!,
+			LuaTypeCode.Thread => (Coroutine)field.Value!,
+			LuaTypeCode.YieldRequest => (YieldRequest)field.Value!,
+			_ => throw new LuaException($"It is not possible to explicitly convert the type '{field.FieldType}'; use the '{nameof(LuaField)}.{nameof(ToObject)}' method for conversion if the object has a custom '{nameof(ObjectToLuaTable)}' converter!")
+		};
+	private static TypeValue IConvert<TypeValue>(LuaField field, IFormatProvider provider)
+		=> (TypeValue)IConvert(field, provider);
 }

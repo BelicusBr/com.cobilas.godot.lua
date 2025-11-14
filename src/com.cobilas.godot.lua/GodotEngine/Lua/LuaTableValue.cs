@@ -1,6 +1,6 @@
-using Cobilas.GodotEngine.GDLua.Interfaces;
+using Cobilas.GodotEngine.Lua.Interfaces;
 
-namespace Cobilas.GodotEngine.GDLua;
+namespace Cobilas.GodotEngine.Lua;
 /// <summary>Represents a basic Lua table element with a name and value.</summary>
 /// <remarks>
 /// This structure implements <see cref="ILuaTable"/> to provide
@@ -17,6 +17,12 @@ public readonly struct LuaTableValue(string name, object value) : ILuaTable {
     public object Value => _value;
     /// <summary>Returns a string representation of the table element in "name = value" format.</summary>
     /// <returns>A formatted string showing the name-value pair.</returns>
-    public override string ToString()
-        => string.Format("{0} = {1}", _name, _value);
+    public override string ToString() {
+        string value = _value switch {
+            string stg => $"\"{stg}\"",
+            char ch => $"'{ch}'",
+            _ => _value.ToString()
+        };
+        return string.Format("{0} = {1}", _name, value);
+	}
 }

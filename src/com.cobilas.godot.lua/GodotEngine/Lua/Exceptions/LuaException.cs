@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cobilas.GodotEngine.GDLua.Exceptions;
+namespace Cobilas.GodotEngine.Lua.Exceptions;
 
 public class LuaException : Exception {
 	public LuaException() { }

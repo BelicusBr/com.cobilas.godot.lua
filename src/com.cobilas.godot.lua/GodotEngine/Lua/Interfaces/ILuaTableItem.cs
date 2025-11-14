@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Cobilas.GodotEngine.GDLua.Interfaces;
+namespace Cobilas.GodotEngine.Lua.Interfaces;
 /// <summary>Represents a Lua table item that can contain multiple table elements and supports enumeration.</summary>
 /// <remarks>Extends <see cref="ILuaTable"/> to provide collection capabilities for Lua table structures.</remarks>
 public interface ILuaTableItem : ILuaTable, IEnumerable<ILuaTable> {
