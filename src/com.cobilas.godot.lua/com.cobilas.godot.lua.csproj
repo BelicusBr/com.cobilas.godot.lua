@@ -42,15 +42,23 @@
 		<None Include="lib\luadlls\**\*" Pack="true" PackagePath="lib\luadlls\" />
 		<None Include="lib\com.cobilas.godot.lua.gdnlib" Pack="true" PackagePath="lib\" />-->
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.2" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.3" />
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
     </ItemGroup>
-    <ItemGroup>
-      <Reference Include="GodotSharp">
-        <HintPath>..\..\..\assemblies\Debug\GodotSharp.dll</HintPath>
-      </Reference>
-      <Reference Include="GodotSharpEditor">
-        <HintPath>..\..\..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Reference Include="GodotSharp">
+			<HintPath>..\..\assemblies\Debug\GodotSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="GodotSharpEditor">
+			<HintPath>..\..\assemblies\Debug\GodotSharpEditor.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<Reference Include="GodotSharp">
+			<HintPath>..\..\assemblies\Release\GodotSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="GodotSharpEditor">
+			<HintPath>..\..\assemblies\Release\GodotSharpEditor.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>
