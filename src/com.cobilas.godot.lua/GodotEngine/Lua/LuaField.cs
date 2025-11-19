@@ -18,16 +18,16 @@ public struct LuaField : IConvertible, IDisposable {
 		FieldName = fieldName;
 	}
 
-	public void ToObject<T>(ref T value) {
+	public readonly void ToObject<T>(ref T value) {
 		if (!CustomConverters.TryGetValue(typeof(T), out ObjectToLuaTable table)) return;
 		value = (T)table.ToObject(value, (Table?)this);
 	}
-
+	/// <inheritdoc/>
 	public void Dispose() {
 		Value = null;
 		FieldName = string.Empty;
 	}
-
+	/// <inheritdoc/>
 	readonly TypeCode IConvertible.GetTypeCode()
 		=> Value switch {
 			null => TypeCode.Empty,
@@ -48,105 +48,105 @@ public struct LuaField : IConvertible, IDisposable {
 			DateTime => TypeCode.DateTime,
 			_ => TypeCode.Object
 		};
-
+	/// <inheritdoc/>
 	readonly bool IConvertible.ToBoolean(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToBoolean(provider),
 			_ => false
 		};
-
+	/// <inheritdoc/>
 	readonly char IConvertible.ToChar(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToChar(provider),
 			_ => char.MinValue
 		};
-
+	/// <inheritdoc/>
 	readonly sbyte IConvertible.ToSByte(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToSByte(provider),
 			_ => 0
 		};
-
+	/// <inheritdoc/>
 	readonly byte IConvertible.ToByte(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToByte(provider),
 			_ => 0
 		};
-
+	/// <inheritdoc/>
 	readonly short IConvertible.ToInt16(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToInt16(provider),
 			_ => 0
 		};
-
+	/// <inheritdoc/>
 	readonly ushort IConvertible.ToUInt16(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToUInt16(provider),
 			_ => 0
 		};
-
+	/// <inheritdoc/>
 	readonly int IConvertible.ToInt32(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToInt32(provider),
 			_ => 0
 		};
-
+	/// <inheritdoc/>
 	readonly uint IConvertible.ToUInt32(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToUInt32(provider),
 			_ => 0U
 		};
-
+	/// <inheritdoc/>
 	readonly long IConvertible.ToInt64(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToInt64(provider),
 			_ => 0L
 		};
-
+	/// <inheritdoc/>
 	readonly ulong IConvertible.ToUInt64(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToUInt64(provider),
 			_ => 0UL
 		};
-
+	/// <inheritdoc/>
 	readonly float IConvertible.ToSingle(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToSingle(provider),
 			_ => 0f
 		};
-
+	/// <inheritdoc/>
 	readonly double IConvertible.ToDouble(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToDouble(provider),
 			_ => 0d
 		};
-
+	/// <inheritdoc/>
 	readonly decimal IConvertible.ToDecimal(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToDecimal(provider),
 			_ => 0m
 		};
-
+	/// <inheritdoc/>
 	readonly DateTime IConvertible.ToDateTime(IFormatProvider provider)
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
 			IConvertible icb => icb.ToDateTime(provider),
 			_ => DateTime.MinValue
 		};
-
+	/// <inheritdoc/>
 	readonly string IConvertible.ToString(IFormatProvider provider) 
 		=> Value switch {
 			null => throw new ArgumentNullException(nameof(Value)),
@@ -154,7 +154,7 @@ public struct LuaField : IConvertible, IDisposable {
 			IConvertible icb => icb.ToString(provider),
 			_ => Value.ToString()
 		};
-
+	/// <inheritdoc/>
 	readonly object IConvertible.ToType(Type conversionType, IFormatProvider provider)
 		=> Convert.ChangeType(
 			Value ?? throw new ArgumentNullException(nameof(Value)),
@@ -212,15 +212,15 @@ public struct LuaField : IConvertible, IDisposable {
 	public static explicit operator DateTime(LuaField field) => Convert.ToDateTime(field, CultureInfo.InvariantCulture);
 
 	public static explicit operator LuaTypeCode(LuaField field) => field.LuaTypeCode;
-	public static explicit operator Table(LuaField field) => IConvert<Table>(field, CultureInfo.InvariantCulture);
-	public static explicit operator Closure(LuaField field) => IConvert<Closure>(field, CultureInfo.InvariantCulture);
-	public static explicit operator CallbackFunction(LuaField field) => IConvert<CallbackFunction>(field, CultureInfo.InvariantCulture);
-	public static explicit operator Coroutine(LuaField field) => IConvert<Coroutine>(field, CultureInfo.InvariantCulture);
-	public static explicit operator TailCallData(LuaField field) => IConvert<TailCallData>(field, CultureInfo.InvariantCulture);
-	public static explicit operator UserData(LuaField field) => IConvert<UserData>(field, CultureInfo.InvariantCulture);
-	public static explicit operator YieldRequest(LuaField field) => IConvert<YieldRequest>(field, CultureInfo.InvariantCulture);
+	public static explicit operator Table(LuaField field) => IConvert<Table>(field);
+	public static explicit operator Closure(LuaField field) => IConvert<Closure>(field);
+	public static explicit operator CallbackFunction(LuaField field) => IConvert<CallbackFunction>(field);
+	public static explicit operator Coroutine(LuaField field) => IConvert<Coroutine>(field);
+	public static explicit operator TailCallData(LuaField field) => IConvert<TailCallData>(field);
+	public static explicit operator UserData(LuaField field) => IConvert<UserData>(field);
+	public static explicit operator YieldRequest(LuaField field) => IConvert<YieldRequest>(field);
 
-	private static object IConvert(LuaField field, IFormatProvider provider)
+	private static object IConvert(LuaField field)
 		=> field.LuaTypeCode switch {
 			LuaTypeCode.Empty => throw new ArgumentNullException(nameof(field), "The input value is empty!"),
 			LuaTypeCode.Table => (Table)field.Value!,
@@ -232,6 +232,6 @@ public struct LuaField : IConvertible, IDisposable {
 			LuaTypeCode.YieldRequest => (YieldRequest)field.Value!,
 			_ => throw new LuaException($"It is not possible to explicitly convert the type '{field.FieldType}'; use the '{nameof(LuaField)}.{nameof(ToObject)}' method for conversion if the object has a custom '{nameof(ObjectToLuaTable)}' converter!")
 		};
-	private static TypeValue IConvert<TypeValue>(LuaField field, IFormatProvider provider)
-		=> (TypeValue)IConvert(field, provider);
+	private static TypeValue IConvert<TypeValue>(LuaField field)
+		=> (TypeValue)IConvert(field);
 }

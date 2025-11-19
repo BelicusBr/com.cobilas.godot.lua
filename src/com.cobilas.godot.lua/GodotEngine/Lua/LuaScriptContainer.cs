@@ -8,15 +8,17 @@ namespace Cobilas.GodotEngine.Lua;
 public sealed class LuaScriptContainer : LuaScript {
 	private Script? script;
 	private bool disposedValue;
-
+	/// <inheritdoc/>
 	public override IScriptLoader ScriptLoader {
 		get => GetScript().Options.ScriptLoader;
 		set => GetScript().Options.ScriptLoader = value;
 	}
+	/// <inheritdoc/>
 	public override Func<string, string> DebugInput {
 		get => GetScript().Options.DebugInput;
 		set => GetScript().Options.DebugInput = value;
 	}
+	/// <inheritdoc/>
 	public override Action<string> DebugPrint {
 		get => GetScript().Options.DebugPrint;
 		set => GetScript().Options.DebugPrint = value;
@@ -34,20 +36,20 @@ public sealed class LuaScriptContainer : LuaScript {
 	public LuaScriptContainer(LuaScriptContainerBuilder? builder) :
 		this((builder ?? throw new ArgumentNullException(nameof(builder))).ToString())
 	{ }
-
+	/// <inheritdoc/>
 	public override Table CreateTable(string? pathField) {
 		Table result = new(script);
 		GetScript().Globals[pathField] = result;
 		return result;
 	}
-
+	/// <inheritdoc/>
 	public override LuaField GetField(string? pathField) {
 		if (string.IsNullOrEmpty(pathField))
 			throw new ArgumentNullException(nameof(pathField), $"The argument {nameof(pathField)} is null or empty!");
 		DynValue dyn = GetScript().Globals.Get(pathField);
 		return new(pathField!, DynValueToObject(dyn));
 	}
-
+	/// <inheritdoc/>
 	public override LuaFunc GetFunction(string? pathFunction) {
 		if (string.IsNullOrEmpty(pathFunction))
 			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
@@ -56,7 +58,7 @@ public sealed class LuaScriptContainer : LuaScript {
 			return new(script, pathFunction!, clr);
 		return new(script, pathFunction!, closure as CallbackFunction);
 	}
-
+	/// <inheritdoc/>
 	public override LuaField[] GetTuplaField(string[]? pathFields) {
 		if (pathFields is null)
 			throw new ArgumentNullException(nameof(pathFields));
@@ -67,7 +69,7 @@ public sealed class LuaScriptContainer : LuaScript {
 			fields[I] = new(pathFields[I], DynValueToObject(tupla[I]));
 		return fields;
 	}
-
+	/// <inheritdoc/>
 	public override void SetField(string? pathField, object? value) {
 		if (string.IsNullOrEmpty(pathField))
 			throw new ArgumentNullException(nameof(pathField), $"The argument {nameof(pathField)} is null or empty!");
@@ -75,13 +77,13 @@ public sealed class LuaScriptContainer : LuaScript {
 			throw new ArgumentNullException(nameof(value));
 		GetScript().Globals.Set(pathField, ObjectToDynValue(script, value));
 	}
-
+	/// <inheritdoc/>
 	public override void SetFunction(string? pathFunction, Delegate? value) {
 		if (string.IsNullOrEmpty(pathFunction))
 			throw new ArgumentNullException(nameof(pathFunction), $"The argument {nameof(pathFunction)} is null or empty!");
 		GetScript().Globals.Set(pathFunction, DynValue.FromObject(GetScript(), value));
 	}
-
+	/// <inheritdoc/>
 	public override void SetTuplaField(string[]? pathFields, object[]? value) {
 		if (pathFields is null)
 			throw new ArgumentNullException(nameof(pathFields));
@@ -92,7 +94,7 @@ public sealed class LuaScriptContainer : LuaScript {
 			tupla[I] = ObjectToDynValue(script, value[I]);
 		GetScript().Globals.Set(pathFields, DynValue.NewTuple(tupla));
 	}
-
+	/// <inheritdoc/>
 	protected override void Dispose(bool disposing) {
 		if (!disposedValue) {
 			if (disposing) {

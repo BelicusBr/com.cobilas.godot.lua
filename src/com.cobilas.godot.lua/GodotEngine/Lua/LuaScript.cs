@@ -21,7 +21,7 @@ public abstract class LuaScript : IDisposable {
 	public abstract Table CreateTable(string? pathField);
 
 	protected abstract void Dispose(bool disposing);
-
+	/// <inheritdoc/>
 	public void Dispose() {
 		Dispose(disposing: true);
 		GC.SuppressFinalize(this);

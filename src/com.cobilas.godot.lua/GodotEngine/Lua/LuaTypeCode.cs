@@ -1,5 +1,5 @@
-﻿using MoonSharp.Interpreter;
-using System;
+﻿using System;
+using MoonSharp.Interpreter;
 
 namespace Cobilas.GodotEngine.Lua;
 public enum LuaTypeCode : byte {

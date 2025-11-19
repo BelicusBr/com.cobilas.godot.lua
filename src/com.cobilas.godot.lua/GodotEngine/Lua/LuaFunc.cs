@@ -30,7 +30,7 @@ public struct LuaFunc : IDisposable {
 		};
 
 	public object? Call() => Call([]);
-
+	/// <inheritdoc/>
 	public void Dispose() {
 		if (disposedValue)
 			throw new ObjectDisposedException(nameof(LuaFunc));

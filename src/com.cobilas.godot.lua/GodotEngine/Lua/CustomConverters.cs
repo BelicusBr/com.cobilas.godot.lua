@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace Cobilas.GodotEngine.Lua;
 
 internal static class CustomConverters {
-	private static bool _init = false;
 	private static readonly Dictionary<Type, ObjectToLuaTable> converters = GetConverters();
 	/// <summary>Attempts to retrieve a converter for the specified type.</summary>
 	/// <param name="type">The type to find a converter for.</param>

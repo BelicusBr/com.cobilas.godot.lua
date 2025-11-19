@@ -14,12 +14,12 @@ public struct CLRRef<T> : IFormattable {
 			return (T)table.ToObject(typeof(T).Activator(), inValue);
 		return default;
 	}
-
+	
 	public override string ToString() {
 		T? result = ToObject();
 		return result is null ? string.Empty : result.ToString();
 	}
-
+	/// <inheritdoc/>
 	public string ToString(string format, IFormatProvider formatProvider) {
 		T? result = ToObject();
 		return result switch {
