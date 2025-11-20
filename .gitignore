@@ -1,10 +1,11 @@
-# folders
-bin/
-obj/
-.mono/
-.vs/
-.vscode/
-.libs/
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
 
-# files
-*.sln
+/export
+/src/com.cobilas.godot.lua/.vs
+/src/com.cobilas.godot.lua/bin
+/src/com.cobilas.godot.lua/obj
+/test/.mono
+/test/.import
+/test/.vs
