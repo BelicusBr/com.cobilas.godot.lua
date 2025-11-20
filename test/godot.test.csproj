@@ -1,0 +1,15 @@
+<Project Sdk="Godot.NET.Sdk/3.3.0">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <Configurations>Debug;ExportDebug;ExportRelease;Release</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="luatest.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Cobilas.Godot.Utility" Version="7.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\com.cobilas.godot.lua\com.cobilas.godot.lua.csproj" />
+  </ItemGroup>
+</Project>
