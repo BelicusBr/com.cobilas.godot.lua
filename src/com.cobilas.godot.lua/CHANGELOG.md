@@ -5,6 +5,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - (20/11/2025)
+### Changed
+The package version has been changed from [2.0.0] to [2.0.1].
+
+## [2.0.0] - (20/11/2025)
+### Added
+- Comprehensive XML documentation comments for all major classes including:
+  - `CLRRef<T>` - Type-safe wrapper for Lua table to CLR object conversion
+  - `LuaException` - Custom exception class for Lua script execution errors
+  - `LuaField` - Field representation with type conversion capabilities
+  - `LuaFunc` - Lua function wrapper with invocation support
+  - `LuaScript` - Base class for Lua script handling in Godot Engine
+  - `LuaScriptContainer` - In-memory Lua script container
+  - `LuaScriptContainerBuilder` - Builder pattern for constructing Lua scripts
+  - `LuaScriptFile` - File-based Lua script with auto-refresh capabilities
+  - `LuaTypeCode` - Unified type system for Lua values
+- Added third-party licensing credits to LICENSE.md including:
+  - KopiLua string library components
+  - Visual Studio Code debugger code from Microsoft
+  - Eclipse project icons for Remote Debugger
+  - MoonSharp icon copyright
+
+### Changed
+- Updated package version to 2.0.0 in README.md and project files
+- Improved code documentation with detailed parameter and return value descriptions
+- Enhanced method signatures with `readonly` modifiers where appropriate
+- Updated package metadata to require license acceptance
+
+## [2.0.0-ch.2] - (18/11/2025)
+### Fixed
+- Corrected XML documentation inheritance tags in `CLRRef<T>` and `LuaField` classes
+- Removed unused `_init` flag from `CustomConverters` class
+- Fixed method signatures in `LuaField` to use `readonly` modifiers
+- Corrected `IConvert` method calls in `LuaField` to remove unnecessary culture parameter
+- Improved license file formatting and structure
+
+### Changed
+- Marked disposal methods with proper `inheritdoc` tags in `LuaFunc` and `LuaScript` classes
+- Enhanced code formatting and consistency across all files
+- Updated project configuration and build settings
+
+## [2.0.0-ch.1] - (17/11/2025)
+### Added
+- Initial pre-release version with core Lua integration functionality
+- Basic Godot Engine integration components
+- Foundation for Lua script execution and management
+
+### Notes
+This release represents a major milestone in the Cobilas Godot Lua integration package, 
+providing comprehensive documentation and improved code quality for production use. 
+The package now offers full IntelliSense support through extensive XML documentation and 
+maintains backward compatibility with existing functionality.
+
 ## [1.3.1] - (06/11/2025)
 
 ### Added
