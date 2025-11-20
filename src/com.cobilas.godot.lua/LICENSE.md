@@ -2,6 +2,17 @@ MIT License
 
 Copyright (c) 2025 Gabriel dos Santos Severino
 
+Parts of the string library are based on the KopiLua project (https://github.com/NLua/KopiLua)
+Copyright (c) 2012 LoDC
+
+Visual Studio Code debugger code is based on code from Microsoft vscode-mono-debug project (https://github.com/Microsoft/vscode-mono-debug).
+Copyright (c) Microsoft Corporation - released under MIT license.
+
+Remote Debugger icons are from the Eclipse project (https://www.eclipse.org/).
+Copyright of The Eclipse Foundation
+
+The MoonSharp icon is (c) Isaac, 2014-2015
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

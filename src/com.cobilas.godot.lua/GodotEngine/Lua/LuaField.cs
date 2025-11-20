@@ -5,19 +5,28 @@ using System.Collections.Generic;
 using Cobilas.GodotEngine.Lua.Exceptions;
 
 namespace Cobilas.GodotEngine.Lua;
-
+/// <summary>Represents a field in a <seealso cref="LuaScript"/> with type conversion capabilities.</summary>
 public struct LuaField : IConvertible, IDisposable {
-
+	/// <summary>Gets the value of the <seealso cref="LuaField"/>.</summary>
+	/// <returns>The field value as an object, or null if not set.</returns>
 	public object? Value { get; private set; }
+	/// <summary>Gets the name of the <seealso cref="LuaField"/>.</summary>
+	/// <returns>The name identifier of the field.</returns>
 	public string FieldName { get; private set; }
+	/// <summary>Gets the Lua type code of the field value.</summary>
+	/// <returns>The <see cref="LuaTypeCode"/> representing the field's data type.</returns>
 	public readonly LuaTypeCode LuaTypeCode => GetLuaTypeCode(Value);
+	/// <summary>Gets the CLR type of the field value.</summary>
+	/// <returns>The <see cref="Type"/> of the field value, or <seealso cref="NullObject.Null"/> type if value is null.</returns>
 	public readonly Type FieldType => Value is null ? NullObject.Null.GetType() : Value.GetType();
 
 	internal LuaField(string fieldName, object? value) {
 		Value = value;
 		FieldName = fieldName;
 	}
-
+	/// <summary>Converts the <seealso cref="LuaField"/> to a CLR object of the specified type using custom converters.</summary>
+	/// <typeparam name="T">The target type for conversion.</typeparam>
+	/// <param name="value">The reference to store the converted object.</param>
 	public readonly void ToObject<T>(ref T value) {
 		if (!CustomConverters.TryGetValue(typeof(T), out ObjectToLuaTable table)) return;
 		value = (T)table.ToObject(value, (Table?)this);
@@ -147,8 +156,9 @@ public struct LuaField : IConvertible, IDisposable {
 			_ => DateTime.MinValue
 		};
 	/// <inheritdoc/>
-	readonly string IConvertible.ToString(IFormatProvider provider) 
-		=> Value switch {
+	readonly string IConvertible.ToString(IFormatProvider provider)
+		=> Value switch
+		{
 			null => throw new ArgumentNullException(nameof(Value)),
 			IFormattable ifp => ifp.ToString(null, provider),
 			IConvertible icb => icb.ToString(provider),
@@ -160,7 +170,9 @@ public struct LuaField : IConvertible, IDisposable {
 			Value ?? throw new ArgumentNullException(nameof(Value)),
 			conversionType, provider
 		);
-
+	/// <summary>Gets the Lua type code for the specified object.</summary>
+	/// <param name="value">The object to get the type code for.</param>
+	/// <returns>The <see cref="LuaTypeCode"/> representing the object's data type.</returns>
 	public static LuaTypeCode GetLuaTypeCode(object? value)
 		=> value switch {
 			null => LuaTypeCode.Empty,
@@ -188,36 +200,87 @@ public struct LuaField : IConvertible, IDisposable {
 			YieldRequest => LuaTypeCode.YieldRequest,
 			_ => LuaTypeCode.Object
 		};
-
+	/// <summary>Gets the <see cref="Lua.LuaTypeCode"/> for the specified <seealso cref="LuaField"/>.</summary>
+	/// <param name="field">The <seealso cref="LuaField"/> to get the type code for.</param>
+	/// <returns>The <see cref="LuaTypeCode"/> representing the field's data type.</returns>
 	public static LuaTypeCode GetLuaTypeCode(LuaField field) => GetLuaTypeCode(field.Value);
-
+	/// <summary>Explicitly converts a tuple to a <seealso cref="LuaField"/>.</summary>
+	/// <param name="value">The tuple containing field name and value.</param>
 	public static explicit operator LuaField((string, object?) value) => new(value.Item1, value.Item2);
+	/// <summary>Explicitly converts a tuple to a <seealso cref="LuaField"/>.</summary>
+	/// <param name="value">The tuple containing field name and value.</param>
 	public static explicit operator LuaField(Tuple<string, object?> value) => new(value.Item1, value.Item2);
+	/// <summary>Explicitly converts a key-value pair to a <seealso cref="LuaField"/>.</summary>
+	/// <param name="value">The key-value pair containing field name and value.</param>
 	public static explicit operator LuaField(KeyValuePair<string, object?> value) => new(value.Key, value.Value);
-
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="string"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator string(LuaField field) => Convert.ToString(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="char"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator char(LuaField field) => Convert.ToChar(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="bool"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator bool(LuaField field) => Convert.ToBoolean(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="byte"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator byte(LuaField field) => Convert.ToByte(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="sbyte"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator sbyte(LuaField field) => Convert.ToSByte(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="short"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator short(LuaField field) => Convert.ToInt16(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to an <seealso cref="ushort"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator ushort(LuaField field) => Convert.ToUInt16(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to an <seealso cref="int"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator int(LuaField field) => Convert.ToInt32(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to an <seealso cref="uint"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator uint(LuaField field) => Convert.ToUInt32(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="long"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator long(LuaField field) => Convert.ToInt64(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to an <seealso cref="ulong"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator ulong(LuaField field) => Convert.ToUInt64(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="float"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator float(LuaField field) => Convert.ToSingle(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="double"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator double(LuaField field) => Convert.ToDouble(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="decimal"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator decimal(LuaField field) => Convert.ToDecimal(field, CultureInfo.InvariantCulture);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="DateTime"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator DateTime(LuaField field) => Convert.ToDateTime(field, CultureInfo.InvariantCulture);
-
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <see cref="Lua.LuaTypeCode"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator LuaTypeCode(LuaField field) => field.LuaTypeCode;
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="Table"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator Table(LuaField field) => IConvert<Table>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="Closure"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator Closure(LuaField field) => IConvert<Closure>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="CallbackFunction"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator CallbackFunction(LuaField field) => IConvert<CallbackFunction>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="Coroutine"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator Coroutine(LuaField field) => IConvert<Coroutine>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="TailCallData"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator TailCallData(LuaField field) => IConvert<TailCallData>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="UserData"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator UserData(LuaField field) => IConvert<UserData>(field);
+	/// <summary>Explicitly converts a <seealso cref="LuaField"/> to a <seealso cref="YieldRequest"/>.</summary>
+	/// <param name="field">The field to convert.</param>
 	public static explicit operator YieldRequest(LuaField field) => IConvert<YieldRequest>(field);
 
 	private static object IConvert(LuaField field)

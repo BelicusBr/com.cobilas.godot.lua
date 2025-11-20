@@ -4,7 +4,11 @@ using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 
 namespace Cobilas.GodotEngine.Lua;
-
+/// <summary>Represents an in-memory Lua script container that can be built from strings or builders.</summary>
+/// <remarks>
+/// This class provides a way to execute Lua scripts from code strings, <see cref="StringBuilder"/>,
+/// or <see cref="LuaScriptContainerBuilder"/> instances without requiring external files.
+/// </remarks>
 public sealed class LuaScriptContainer : LuaScript {
 	private Script? script;
 	private bool disposedValue;
@@ -23,16 +27,22 @@ public sealed class LuaScriptContainer : LuaScript {
 		get => GetScript().Options.DebugPrint;
 		set => GetScript().Options.DebugPrint = value;
 	}
-
+	/// <summary>Initializes a new instance of the <see cref="LuaScriptContainer"/> class with the specified Lua code.</summary>
+	/// <param name="code">The Lua code to execute.</param>
+	/// <exception cref="ArgumentNullException">Thrown when code is null.</exception>
 	public LuaScriptContainer(string? code) {
 		if (code is null) throw new ArgumentNullException(nameof(code));
 		_ = (script = new()).DoString(code);
 	}
-
+	/// <summary>Initializes a new instance of the <see cref="LuaScriptContainer"/> class from a <see cref="StringBuilder"/>.</summary>
+	/// <param name="builder">The string builder containing Lua code.</param>
+	/// <exception cref="ArgumentNullException">Thrown when builder is null.</exception>
 	public LuaScriptContainer(StringBuilder? builder) :
 		this((builder ?? throw new ArgumentNullException(nameof(builder))).ToString())
 	{ }
-
+	/// <summary>Initializes a new instance of the <see cref="LuaScriptContainer"/> class from a <see cref="LuaScriptContainerBuilder"/>.</summary>
+	/// <param name="builder">The script container builder containing Lua code.</param>
+	/// <exception cref="ArgumentNullException">Thrown when builder is null.</exception>
 	public LuaScriptContainer(LuaScriptContainerBuilder? builder) :
 		this((builder ?? throw new ArgumentNullException(nameof(builder))).ToString())
 	{ }
@@ -101,7 +111,8 @@ public sealed class LuaScriptContainer : LuaScript {
 				script = null;
 			}
 			disposedValue = true;
-		} else ObjectDisposed();
+		}
+		else ObjectDisposed();
 	}
 
 	private void ObjectDisposed() {

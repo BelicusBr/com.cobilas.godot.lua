@@ -2,6 +2,11 @@
 using MoonSharp.Interpreter;
 
 namespace Cobilas.GodotEngine.Lua;
+/// <summary>Represents the type codes for Lua values, combining CLR type codes with MoonSharp Lua-specific data types.</summary>
+/// <remarks>
+/// This enumeration provides a unified type system that maps both standard CLR types
+/// and MoonSharp-specific Lua types to numeric codes for efficient type checking and conversion.
+/// </remarks>
 public enum LuaTypeCode : byte {
 	/// <inheritdoc cref="TypeCode.Empty"/>
 	Empty = 0,
