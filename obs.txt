@@ -1,2 +1,0 @@
-verificar as DLLs Lua para exportação.
-tem que ser analisado para ver quais arquiteturas cada DLL lua pertence.
