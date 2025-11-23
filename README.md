@@ -131,10 +131,10 @@ Check the `Examples/` folder for complete usage examples:
 To include the package, open the `.csproj` file and add it.
 ```xml
 <ItemGroup>
-	<PackageReference Include="Cobilas.Godot.Lua" Version="2.0.2" />
+	<PackageReference Include="Cobilas.Godot.Lua" Version="2.0.3" />
 </ItemGroup>
 ```
 Or use command line.
 ```
-dotnet add package Cobilas.Godot.Lua --version 2.0.2
+dotnet add package Cobilas.Godot.Lua --version 2.0.3
 ```
