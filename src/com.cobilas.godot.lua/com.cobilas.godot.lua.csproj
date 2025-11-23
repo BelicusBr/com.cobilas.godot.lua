@@ -10,7 +10,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <Title>Cobilas Godot Lua</Title>
         <Authors>BélicusBr</Authors>
-        <Version>2.0.1</Version>
+        <Version>2.0.2</Version>
         <PackageId>Cobilas.Godot.Lua</PackageId>
         <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -38,7 +38,9 @@
 		<None Include="..\..\LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="7.3.3" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="7.4.2">
+			<PrivateAssets>analyzers</PrivateAssets>
+		</PackageReference>
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
     </ItemGroup>
 	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
