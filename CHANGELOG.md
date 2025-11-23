@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - (23/11/2025)
+
+### Changed
+- **Dependency Update**: Upgraded `Cobilas.Godot.Utility` dependency from version 7.3.3 to 7.4.2
+- **Package Configuration**: Added `<PrivateAssets>analyzers</PrivateAssets>` to utility package reference for better dependency management
+
+### Removed
+- **Test Project**: Removed direct `Cobilas.Godot.Utility` package reference from test project, as it's now inherited through project reference
+
+### Technical Notes
+- Version bump from 2.0.1 to 2.0.2 to reflect dependency updates
+- Test project now relies on transitive dependency resolution through the main project reference
+- Private assets configuration prevents analyzer dependencies from flowing to consuming projects
+
 ## [2.0.1] - (20/11/2025)
 ### Changed
 The package version has been changed from [2.0.0] to [2.0.1].
