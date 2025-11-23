@@ -151,6 +151,7 @@ public sealed class LuaScriptFile : LuaScript {
 		ObjectDisposed();
 		if (!RefreshLuaScript) return;
 		else if (_LastWriteTimeUtc == (_LastWriteTimeUtc = info!.GetLastWriteTimeUtc)) return;
+		archiveStream!.RefreshBuffer();
 		archiveStream!.Read(out string stg);
 		_ = (script = new()).DoString(stg);
 	}
