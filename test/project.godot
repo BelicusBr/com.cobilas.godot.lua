@@ -24,3 +24,7 @@ project/assembly_name="godot.test"
 [rendering]
 
 quality/driver/driver_name="GLES2"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/PlugInDeployerStart/plugin.cfg" )
