@@ -8,9 +8,14 @@
         <NoWarn>1701;1702;IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
         <BaseOutputPath>bin\</BaseOutputPath>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <Version>2.1.0</Version>
+        <WarningLevel>4</WarningLevel>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
+    <!--NuGet-->
+    <PropertyGroup>
         <Title>Cobilas Godot Lua</Title>
         <Authors>BélicusBr</Authors>
-        <Version>2.0.3</Version>
         <PackageId>Cobilas.Godot.Lua</PackageId>
         <RepositoryUrl>https://github.com/BelicusBr/com.cobilas.godot.lua</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -22,23 +27,16 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageOutputPath>C:\local.nuget</PackageOutputPath>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <WarningLevel>4</WarningLevel>
-        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <WarningLevel>4</WarningLevel>
-        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
     </PropertyGroup>
     <ItemGroup>
-		<None Include="..\..\README.md" Pack="True" PackagePath="\" />
+        <None Include="..\..\project-git-funcs.ps1"/>
+        <None Include="..\..\README.md" Pack="True" PackagePath="\" />
 		<None Include="..\..\LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" />
-		<PackageReference Include="Cobilas.Core.Net4x" Version="2.7.2" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="7.4.2">
+		<PackageReference Include="Cobilas.Core.Net4x" Version="2.12.0" />
+		<PackageReference Include="Cobilas.Godot.Utility" Version="8.0.1">
 			<PrivateAssets>analyzers</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
