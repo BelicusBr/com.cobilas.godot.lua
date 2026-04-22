@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+---
+
+## [2.1.0] - (21/04/2026)
+
+### Changed
+- Updated dependency `Cobilas.Core.Net4x` from version `2.7.2` to `2.12.0`.
+- Updated dependency `Cobilas.Godot.Utility` from version `7.4.2` to `8.0.1`.
+- Refactored project file (`com.cobilas.godot.lua.csproj`):
+  - Moved NuGet packaging properties (`Title`, `Authors`, `PackageId`, `RepositoryUrl`, `RepositoryType`, `NeutralLanguage`, `PackageTags`, `PackageReadmeFile`, `PackageLicenseFile`, `PackageOutputPath`, `PackageRequireLicenseAcceptance`, `GeneratePackageOnBuild`) into a dedicated `<PropertyGroup>`.
+  - Set `GeneratePackageOnBuild` to only run in `Release` configuration.
+  - Moved `WarningLevel` and `CheckForOverflowUnderflow` to the main property group (applies to all configurations).
+  - Added `project-git-funcs.ps1` to the project as a content file.
+- Bumped package version from `2.0.3` to `2.1.0`.
+
+---
+
 ## [2.0.3] - (23/11/2025)
 
 ### Fixed
