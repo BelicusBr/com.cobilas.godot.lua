@@ -8,7 +8,7 @@
         <NoWarn>1701;1702;IDE0290;IDE0300;IDE0301;IDE0130;IDE1006;IDE0056;IDE0057</NoWarn>
         <BaseOutputPath>bin\</BaseOutputPath>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <Version>2.1.0</Version>
+        <Version>2.2.0</Version>
         <WarningLevel>4</WarningLevel>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     </PropertyGroup>
@@ -31,12 +31,12 @@
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
     </PropertyGroup>
     <ItemGroup>
-        <None Include="..\..\project-git-funcs.ps1"/>
+        <None Include="..\..\project-git-funcs.ps1" />
         <None Include="..\..\README.md" Pack="True" PackagePath="\" />
 		<None Include="..\..\LICENSE.md" Pack="True" PackagePath="\" />
 		<None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" />
 		<PackageReference Include="Cobilas.Core.Net4x" Version="2.12.0" />
-		<PackageReference Include="Cobilas.Godot.Utility" Version="8.0.1">
+		<PackageReference Include="Cobilas.Godot.Utility" Version="8.1.0">
 			<PrivateAssets>analyzers</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="MoonSharp" Version="2.0.0" />
