@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - (29/04/2026)
+
+### Changed
+- Updated dependency `Cobilas.Godot.Utility` from version `8.0.1` to `8.1.0`.
+- Bumped package version from `2.1.0` to `2.2.0`.
+
+### Removed
+- Deleted the obsolete solution file `com.cobilas.godot.lua.sln`. The project now uses the `.slnx` format or is managed directly.
+
+---
+
 ## [2.1.0] - (21/04/2026)
 
 ### Changed
